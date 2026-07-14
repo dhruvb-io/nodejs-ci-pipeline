@@ -1,8 +1,12 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'node:16'   // Use official Node.js image
+            args '-p 3000:3000' // Optional: expose ports if needed
+        }
+    }
 
     stages {
-
         stage('Install') {
             steps {
                 sh 'npm install'
@@ -26,7 +30,6 @@ pipeline {
         success {
             echo 'Build Successful'
         }
-
         failure {
             echo 'Build Failed'
         }
